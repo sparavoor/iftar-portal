@@ -7,9 +7,15 @@ export default async function SuccessPage(props: { params: Promise<{ id: string 
     const registrationId = params.id
 
     // Use registrationId field not id primary key
-    const registration = await prisma.registration.findUnique({
-        where: { registrationId },
-    })
+    let registration = null
+    try {
+        registration = await prisma.registration.findUnique({
+            where: { registrationId },
+        })
+    } catch (error) {
+        console.error('Failed to fetch registration:', error)
+        // Ensure we don't crash, let the null check handle usage
+    }
 
     if (!registration) {
         return (
