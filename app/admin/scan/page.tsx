@@ -187,10 +187,16 @@ export default function ScanPage() {
                                 <span className="text-gray-400">Mobile</span>
                                 <span className="text-white">{previewData.mobile}</span>
                             </div>
-                            {previewData.class && (
+                            {previewData.department && (
                                 <div className="flex justify-between border-b border-gray-600 pb-2">
-                                    <span className="text-gray-400">Class</span>
-                                    <span className="text-white">{previewData.class}</span>
+                                    <span className="text-gray-400">Department</span>
+                                    <span className="text-white">{previewData.department}</span>
+                                </div>
+                            )}
+                            {previewData.year && (
+                                <div className="flex justify-between border-b border-gray-600 pb-2">
+                                    <span className="text-gray-400">Year</span>
+                                    <span className="text-white">{previewData.year}</span>
                                 </div>
                             )}
                             <div className="flex justify-between pt-1">
@@ -212,8 +218,8 @@ export default function ScanPage() {
                                 onClick={confirmAdmission}
                                 disabled={previewData.admitted}
                                 className={`px-4 py-3 rounded-lg font-bold transition-all active:scale-95 shadow-lg ${previewData.admitted
-                                        ? "bg-gray-600 text-gray-400 cursor-not-allowed"
-                                        : "bg-green-600 hover:bg-green-700 text-white shadow-green-900/20"
+                                    ? "bg-gray-600 text-gray-400 cursor-not-allowed"
+                                    : "bg-green-600 hover:bg-green-700 text-white shadow-green-900/20"
                                     }`}
                             >
                                 {previewData.admitted ? "Admitted" : "Admit Now"}

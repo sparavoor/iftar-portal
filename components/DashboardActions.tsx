@@ -21,7 +21,20 @@ export default function DashboardActions({ date }: { date?: string }) {
     const exportExcel = async () => {
         try {
             setLoading(true)
-            const data = await fetchData()
+            setLoading(true)
+            const rawData = await fetchData()
+
+            // Map data for Excel to match desired column order
+            const data = rawData.map((reg: any) => ({
+                "Registration ID": reg.registrationId,
+                "Mobile": reg.mobile,
+                "Name": reg.name,
+                "Department": reg.department,
+                "Year": reg.year,
+                "Status": reg.admitted ? "Admitted" : "Pending",
+                "Admitted At": reg.admittedAt ? new Date(reg.admittedAt).toLocaleString() : '',
+                "Created At": new Date(reg.createdAt).toLocaleString()
+            }))
 
             const worksheet = XLSX.utils.json_to_sheet(data)
             const workbook = XLSX.utils.book_new()
@@ -52,15 +65,16 @@ export default function DashboardActions({ date }: { date?: string }) {
 
             const tableData = data.map((reg: any) => [
                 reg.registrationId,
-                reg.name,
                 reg.mobile,
-                reg.class || '-',
+                reg.name,
+                reg.department || '-',
+                reg.year || '-',
                 reg.admitted ? 'Admitted' : 'Pending',
                 reg.admittedAt ? new Date(reg.admittedAt).toLocaleTimeString() : '-'
             ])
 
             autoTable(doc, {
-                head: [['ID', 'Name', 'Mobile', 'Class', 'Status', 'Admitted At']],
+                head: [['ID', 'Mobile', 'Name', 'Dept', 'Year', 'Status', 'Admitted At']],
                 body: tableData,
                 startY: 40,
                 theme: 'grid',

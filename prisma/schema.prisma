@@ -16,7 +16,7 @@ model Registration {
   registrationId String    @unique // e.g. REG-2026-001
   name           String
   mobile         String
-  class          String?
+  department     String?
   year           String?
   admitted       Boolean   @default(false)
   admittedAt     DateTime?

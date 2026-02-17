@@ -132,9 +132,10 @@ export default async function AdminDashboard({
                             <thead className="bg-gray-50 text-gray-600 font-medium">
                                 <tr>
                                     <th className="px-6 py-3">ID</th>
-                                    <th className="px-6 py-3">Name</th>
                                     <th className="px-6 py-3">Mobile</th>
-                                    <th className="px-6 py-3">Class</th>
+                                    <th className="px-6 py-3">Name</th>
+                                    <th className="px-6 py-3">Department</th>
+                                    <th className="px-6 py-3">Year</th>
                                     <th className="px-6 py-3">Status</th>
                                     <th className="px-6 py-3">Time</th>
                                 </tr>
@@ -143,9 +144,10 @@ export default async function AdminDashboard({
                                 {stats.recent.map((reg) => (
                                     <tr key={reg.id} className="hover:bg-gray-50">
                                         <td className="px-6 py-3 font-mono text-gray-600">{reg.registrationId}</td>
-                                        <td className="px-6 py-3 font-medium text-gray-900">{reg.name}</td>
-                                        <td className="px-6 py-3 text-gray-600">{reg.mobile}</td>
-                                        <td className="px-6 py-3 text-gray-600">{reg.class || '-'}</td>
+                                        <td className="px-6 py-3 text-gray-600 font-medium">{reg.mobile}</td>
+                                        <td className="px-6 py-3 text-gray-900">{reg.name}</td>
+                                        <td className="px-6 py-3 text-gray-600">{reg.department || '-'}</td>
+                                        <td className="px-6 py-3 text-gray-600">{reg.year || '-'}</td>
                                         <td className="px-6 py-3">
                                             {reg.admitted ? (
                                                 <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">

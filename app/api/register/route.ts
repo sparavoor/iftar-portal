@@ -4,13 +4,11 @@ import { prisma } from '@/lib/prisma'
 export async function POST(request: Request) {
     try {
         const body = await request.json()
-        const { name, mobile, class: userClass, year } = body
+        const { name, mobile, department, year } = body
 
-        if (!name || !mobile) {
-            return NextResponse.json(
-                { error: 'Name and Mobile Number are required' },
-                { status: 400 }
-            )
+        // Basic validation
+        if (!name || !mobile || !department || !year) {
+            return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
         }
 
         // Check if mobile already exists
@@ -33,11 +31,11 @@ export async function POST(request: Request) {
         // Create Registration
         const registration = await prisma.registration.create({
             data: {
+                registrationId,
                 name,
                 mobile,
-                class: userClass,
+                department, // Renamed from class
                 year,
-                registrationId,
             },
         })
 

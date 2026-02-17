@@ -2,136 +2,230 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { Loader2, Phone, User, Building, Calendar, CheckCircle, Download } from 'lucide-react'
 import { toast } from 'sonner'
-import { User, Phone, BookOpen, Calendar, Loader2 } from 'lucide-react'
 
 export default function RegistrationForm() {
     const router = useRouter()
+    const [step, setStep] = useState<'mobile' | 'details' | 'existing'>('mobile')
     const [loading, setLoading] = useState(false)
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        setLoading(true)
+    // Form Data
+    const [mobile, setMobile] = useState('')
+    const [name, setName] = useState('')
+    const [department, setDepartment] = useState('')
+    const [year, setYear] = useState('')
 
-        const formData = new FormData(e.currentTarget)
-        const data = {
-            name: formData.get('name'),
-            mobile: formData.get('mobile'),
-            class: formData.get('class'),
-            year: formData.get('year'),
+    // Existing User Data
+    const [existingUser, setExistingUser] = useState<any>(null)
+
+    const handleMobileSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        if (!mobile || mobile.length < 10) {
+            toast.error('Please enter a valid mobile number')
+            return
         }
 
+        setLoading(true)
         try {
-            const res = await fetch('/api/register', {
+            const res = await fetch('/api/check-registration', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ mobile }),
             })
+            const data = await res.json()
 
-            const result = await res.json()
-
-            if (!res.ok) {
-                throw new Error(result.error || 'Something went wrong')
+            if (data.exists) {
+                setExistingUser(data.registration)
+                setStep('existing')
+                toast.success('You are already registered!')
+            } else {
+                setStep('details')
             }
-
-            toast.success('Registration Successful!')
-            router.push(`/success/${result.registration.registrationId}`)
-        } catch (error: any) {
-            toast.error(error.message)
+        } catch (error) {
+            toast.error('Network error. Please try again.')
         } finally {
             setLoading(false)
         }
     }
 
+    const handleRegister = async (e: React.FormEvent) => {
+        e.preventDefault()
+        setLoading(true)
+
+        try {
+            const res = await fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, mobile, department, year }),
+            })
+
+            const data = await res.json()
+
+            if (res.ok) {
+                toast.success('Registration Successful!')
+                router.push(`/success/${data.registration.registrationId}`)
+            } else {
+                toast.error(data.error || 'Registration failed')
+            }
+        } catch (error) {
+            toast.error('Something went wrong')
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const downloadTicket = () => {
+        if (existingUser) {
+            router.push(`/success/${existingUser.registrationId}`)
+        }
+    }
+
+    if (step === 'mobile') {
+        return (
+            <form onSubmit={handleMobileSubmit} className="space-y-4">
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Mobile Number</label>
+                    <div className="relative">
+                        <Phone className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                        <input
+                            type="tel"
+                            required
+                            placeholder="Enter your mobile number"
+                            className="pl-10 w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-black outline-none"
+                            value={mobile}
+                            onChange={(e) => setMobile(e.target.value)}
+                        />
+                    </div>
+                </div>
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg transition-colors flex justify-center items-center"
+                >
+                    {loading ? <Loader2 className="animate-spin h-5 w-5" /> : 'Continue'}
+                </button>
+            </form>
+        )
+    }
+
+    if (step === 'existing') {
+        return (
+            <div className="space-y-6 text-center animate-in fade-in slide-in-from-bottom-4">
+                <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                    <CheckCircle className="h-8 w-8 text-green-600" />
+                </div>
+                <div>
+                    <h3 className="text-xl font-bold text-gray-900">Welcome Back, {existingUser.name}!</h3>
+                    <p className="text-gray-500 text-sm mt-1">You have already registered.</p>
+                </div>
+
+                <div className="bg-gray-50 p-4 rounded-lg text-left space-y-2 text-sm border border-gray-200">
+                    <div className="flex justify-between border-b pb-2">
+                        <span className="text-gray-500">Mobile</span>
+                        <span className="font-medium">{existingUser.mobile}</span>
+                    </div>
+                    <div className="flex justify-between border-b pb-2 pt-2">
+                        <span className="text-gray-500">Department</span>
+                        <span className="font-medium">{existingUser.department}</span>
+                    </div>
+                    <div className="flex justify-between pt-2">
+                        <span className="text-gray-500">Year</span>
+                        <span className="font-medium">{existingUser.year}</span>
+                    </div>
+                </div>
+
+                <div className="grid gap-3">
+                    <button
+                        onClick={downloadTicket}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition-colors"
+                    >
+                        <Download className="h-5 w-5" /> Download Ticket
+                    </button>
+                    <button
+                        onClick={() => setStep('mobile')}
+                        className="text-sm text-gray-500 hover:text-gray-700 underline"
+                    >
+                        Use a different number
+                    </button>
+                </div>
+            </div>
+        )
+    }
+
     return (
-        <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-2">
-                <label htmlFor="name" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Full Name</label>
+        <form onSubmit={handleRegister} className="space-y-4 animate-in fade-in slide-in-from-right-8">
+            <div className="bg-blue-50 p-3 rounded-lg mb-4 flex items-center gap-3">
+                <Phone className="h-5 w-5 text-blue-600" />
+                <div>
+                    <p className="text-xs text-blue-600 font-semibold">Mobile Verified</p>
+                    <p className="text-sm text-blue-800 font-bold">{mobile}</p>
+                </div>
+                <button
+                    type="button"
+                    onClick={() => setStep('mobile')}
+                    className="ml-auto text-xs text-blue-500 underline"
+                >
+                    Change
+                </button>
+            </div>
+
+            <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
                 <div className="relative">
-                    <User className="absolute left-3 top-2.5 h-5 w-5 text-muted-foreground text-gray-400" />
+                    <User className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                     <input
-                        id="name"
-                        name="name"
+                        type="text"
                         required
-                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 pl-10 border-gray-300 focus:border-green-600 focus:ring-green-600"
-                        placeholder="Enter your full name"
+                        placeholder="Enter your name"
+                        className="pl-10 w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-black outline-none"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                     />
                 </div>
             </div>
 
-            <div className="space-y-2">
-                <label htmlFor="mobile" className="text-sm font-medium leading-none">Mobile Number</label>
+            <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Department</label>
                 <div className="relative">
-                    <Phone className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+                    <Building className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                     <input
-                        id="mobile"
-                        name="mobile"
-                        type="tel"
+                        type="text"
                         required
-                        pattern="[0-9]{10}"
-                        title="Please enter a valid 10-digit mobile number"
-                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm pl-10 border-gray-300 focus:border-green-600 focus:ring-green-600"
-                        placeholder="Enter 10-digit mobile number"
+                        placeholder="Enter your department"
+                        className="pl-10 w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-black outline-none"
+                        value={department}
+                        onChange={(e) => setDepartment(e.target.value)}
                     />
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                    <label htmlFor="class" className="text-sm font-medium leading-none">Class</label>
-                    <div className="relative">
-                        <BookOpen className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                        <select
-                            id="class"
-                            name="class"
-                            required
-                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm pl-10 border-gray-300 focus:border-green-600 focus:ring-green-600 appearance-none"
-                        >
-                            <option value="">Select Class</option>
-                            <option value="1">Class 1</option>
-                            <option value="2">Class 2</option>
-                            <option value="3">Class 3</option>
-                            <option value="4">Class 4</option>
-                            <option value="5">Class 5</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div className="space-y-2">
-                    <label htmlFor="year" className="text-sm font-medium leading-none">Year</label>
-                    <div className="relative">
-                        <Calendar className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                        <select
-                            id="year"
-                            name="year"
-                            required
-                            defaultValue="2026"
-                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm pl-10 border-gray-300 focus:border-green-600 focus:ring-green-600 appearance-none"
-                        >
-                            <option value="2026">2026</option>
-                            <option value="2027">2027</option>
-                            <option value="2028">2028</option>
-                        </select>
-                    </div>
+            <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Year</label>
+                <div className="relative">
+                    <Calendar className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                    <select
+                        required
+                        className="pl-10 w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-black outline-none bg-white"
+                        value={year}
+                        onChange={(e) => setYear(e.target.value)}
+                    >
+                        <option value="">Select Year</option>
+                        <option value="1st Year">1st Year</option>
+                        <option value="2nd Year">2nd Year</option>
+                        <option value="3rd Year">3rd Year</option>
+                        <option value="4th Year">4th Year</option>
+                        <option value="Other">Other</option>
+                    </select>
                 </div>
             </div>
 
             <button
                 type="submit"
                 disabled={loading}
-                className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-green-800 text-white hover:bg-green-900 h-10 px-4 py-2 w-full"
+                className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg transition-colors flex justify-center items-center"
             >
-                {loading ? (
-                    <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Registering...
-                    </>
-                ) : (
-                    'Register Now'
-                )}
+                {loading ? <Loader2 className="animate-spin h-5 w-5" /> : 'Register Now'}
             </button>
         </form>
     )
