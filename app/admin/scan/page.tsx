@@ -11,6 +11,44 @@ export default function ScanPage() {
     const router = useRouter()
     const [scanResult, setScanResult] = useState<{ success: boolean; message: string; data?: any } | null>(null)
     const [scanning, setScanning] = useState(true)
+    const [manualId, setManualId] = useState('')
+
+    const handleManualSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        if (!manualId.trim()) return
+
+        // Use the existing logic but for manual ID
+        // We can simulate the scan success or just call the logic directly
+        // Let's extract the logic to a reusable function or just call it here (duplication for safety/speed)
+
+        try {
+            const res = await fetch('/api/admit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ registrationId: manualId.trim() }),
+            })
+
+            const result = await res.json()
+
+            if (res.ok) {
+                setScanResult({ success: true, message: 'Admitted Successfully', data: result.registration })
+                toast.success('Admitted Successfully')
+                setManualId('') // Clear input
+                setScanning(false) // Hide scanner
+            } else {
+                if (res.status === 409) {
+                    setScanResult({ success: false, message: 'Already Admitted', data: result.registration })
+                    toast.warning('Already Admitted')
+                    setScanning(false)
+                } else {
+                    toast.error(result.error || 'Admission Failed')
+                }
+            }
+        } catch (err) {
+            console.error(err)
+            toast.error('Processing Error')
+        }
+    }
 
     useEffect(() => {
         // Check if session exists (client side simplistic check)
@@ -108,8 +146,32 @@ export default function ScanPage() {
                 {!scanResult ? (
                     <div className="w-full max-w-md bg-white rounded-xl overflow-hidden shadow-lg">
                         <div id="reader" className="w-full bg-white text-black"></div>
-                        <div className="p-4 bg-gray-100 text-center text-gray-500 text-sm">
+                        <div className="p-4 bg-gray-100 text-center text-gray-500 text-sm border-b">
                             Point camera at participant QR code
+                        </div>
+
+                        <div className="p-4 bg-white">
+                            <div className="relative flex items-center">
+                                <div className="flex-grow border-t border-gray-300"></div>
+                                <span className="flex-shrink-0 mx-4 text-gray-400 text-xs uppercase">Or Manual Entry</span>
+                                <div className="flex-grow border-t border-gray-300"></div>
+                            </div>
+
+                            <form onSubmit={handleManualSubmit} className="mt-4 flex gap-2">
+                                <input
+                                    type="text"
+                                    placeholder="Enter Registration ID (e.g. IFTAR-2026-001)"
+                                    value={manualId}
+                                    onChange={(e) => setManualId(e.target.value)}
+                                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-black focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none"
+                                />
+                                <button
+                                    type="submit"
+                                    className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                                >
+                                    Admit
+                                </button>
+                            </form>
                         </div>
                     </div>
                 ) : (
