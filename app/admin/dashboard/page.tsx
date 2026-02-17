@@ -5,6 +5,7 @@ import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import DashboardActions from '@/components/DashboardActions'
 import DateFilter from '@/components/DateFilter'
+import RegistrationToggle from '@/components/RegistrationToggle'
 
 async function getStats(date?: string) {
     let whereClause = {}
@@ -37,7 +38,11 @@ async function getStats(date?: string) {
         orderBy: { createdAt: 'desc' },
     })
 
-    return { total, admitted, pending, recent }
+    // Fetch Settings
+    let settings = await prisma.systemSettings.findUnique({ where: { id: 'default' } })
+    if (!settings) settings = { id: 'default', registrationOpen: true }
+
+    return { total, admitted, pending, recent, settings }
 }
 
 export default async function AdminDashboard({
