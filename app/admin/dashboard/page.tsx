@@ -4,26 +4,52 @@ import Link from 'next/link'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import DashboardActions from '@/components/DashboardActions'
+import DateFilter from '@/components/DateFilter'
 
-async function getStats() {
-    const total = await prisma.registration.count()
-    const admitted = await prisma.registration.count({ where: { admitted: true } })
+async function getStats(date?: string) {
+    let whereClause = {}
+
+    if (date) {
+        const startOfDay = new Date(date)
+        startOfDay.setHours(0, 0, 0, 0)
+
+        const endOfDay = new Date(date)
+        endOfDay.setHours(23, 59, 59, 999)
+
+        whereClause = {
+            createdAt: {
+                gte: startOfDay,
+                lte: endOfDay,
+            },
+        }
+    }
+
+    const total = await prisma.registration.count({ where: whereClause })
+    const admitted = await prisma.registration.count({ where: { ...whereClause, admitted: true } })
     const pending = total - admitted
 
+    // If filtering by date, we show ALL for that date. If global, show last 10.
+    const take = date ? undefined : 10
+
     const recent = await prisma.registration.findMany({
-        take: 10,
+        where: whereClause,
+        take: take,
         orderBy: { createdAt: 'desc' },
     })
 
     return { total, admitted, pending, recent }
 }
 
-export default async function AdminDashboard() {
-    // Check auth
+export default async function AdminDashboard({
+    searchParams,
+}: {
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+    const { date } = (await searchParams) as { date?: string }
     const session = await getServerSession()
     if (!session) redirect('/admin/login')
 
-    const stats = await getStats()
+    const stats = await getStats(date)
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -43,6 +69,15 @@ export default async function AdminDashboard() {
             </nav>
 
             <main className="p-6 max-w-7xl mx-auto space-y-6">
+
+                {/* Filters */}
+                <div className="flex justify-between items-center">
+                    <div>
+                        <h2 className="text-gray-600 font-medium">Overview {date ? `for ${new Date(date).toLocaleDateString()}` : 'All Time'}</h2>
+                    </div>
+                    <DateFilter />
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center space-x-4">
                         <div className="p-3 bg-blue-50 rounded-full text-blue-600">
@@ -77,8 +112,10 @@ export default async function AdminDashboard() {
 
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                     <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-                        <h2 className="font-semibold text-gray-800">Recent Registrations</h2>
-                        <DashboardActions />
+                        <h2 className="font-semibold text-gray-800">
+                            {date ? `Registrations (${stats.recent.length})` : 'Recent Registrations'}
+                        </h2>
+                        <DashboardActions date={date} />
                     </div>
                     <div className="overflow-x-auto">
                         <table className="w-full text-sm text-left">
@@ -115,7 +152,7 @@ export default async function AdminDashboard() {
                                 ))}
                                 {stats.recent.length === 0 && (
                                     <tr>
-                                        <td colSpan={6} className="px-6 py-8 text-center text-gray-400">No registrations yet</td>
+                                        <td colSpan={6} className="px-6 py-8 text-center text-gray-400">No registrations found</td>
                                     </tr>
                                 )}
                             </tbody>

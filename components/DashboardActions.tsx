@@ -7,11 +7,12 @@ import autoTable from 'jspdf-autotable'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
-export default function DashboardActions() {
+export default function DashboardActions({ date }: { date?: string }) {
     const [loading, setLoading] = useState(false)
 
     const fetchData = async () => {
-        const res = await fetch('/api/registrations')
+        const url = date ? `/api/registrations?date=${date}` : '/api/registrations'
+        const res = await fetch(url)
         if (!res.ok) throw new Error('Failed to fetch data')
         const data = await res.json()
         return data.registrations
