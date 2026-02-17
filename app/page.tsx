@@ -6,9 +6,15 @@ import { Moon, AlertCircle } from 'lucide-react'
 export const dynamic = 'force-dynamic'
 
 export default async function Home() {
-  let settings = await prisma.systemSettings.findUnique({ where: { id: 'default' } })
-  // Default to open if settings not found (first run)
-  const isOpen = settings ? settings.registrationOpen : true
+  let settings = { registrationOpen: true } // Default
+  try {
+    const dbSettings = await prisma.systemSettings.findUnique({ where: { id: 'default' } })
+    if (dbSettings) settings = dbSettings
+  } catch (error) {
+    console.error("Failed to fetch settings:", error)
+  }
+
+  const isOpen = settings.registrationOpen
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-green-50 to-green-100 flex flex-col items-center justify-center p-4">
