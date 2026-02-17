@@ -11,17 +11,29 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
         }
 
-        // Check if mobile already exists - REMOVED to allow multiple registrations
-        // const existingUser = await prisma.registration.findFirst({
-        //     where: { mobile },
-        // })
+        // Check for existing registration TODAY
+        const startOfDay = new Date()
+        startOfDay.setHours(0, 0, 0, 0)
 
-        // if (existingUser) {
-        //     return NextResponse.json(
-        //         { error: 'Mobile number already registered', registration: existingUser },
-        //         { status: 409 }
-        //     )
-        // }
+        const endOfDay = new Date()
+        endOfDay.setHours(23, 59, 59, 999)
+
+        const existingToday = await prisma.registration.findFirst({
+            where: {
+                mobile,
+                createdAt: {
+                    gte: startOfDay,
+                    lte: endOfDay
+                }
+            }
+        })
+
+        if (existingToday) {
+            return NextResponse.json(
+                { error: 'You have already registered today. Please try again tomorrow.' },
+                { status: 409 }
+            )
+        }
 
         // Generate Registration ID (Find latest to avoid duplicates)
         const lastRegistration = await prisma.registration.findFirst({

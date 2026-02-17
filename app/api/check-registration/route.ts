@@ -14,7 +14,7 @@ export async function POST(request: Request) {
 
         const existing = await prisma.registration.findFirst({
             where: { mobile },
-            orderBy: { createdAt: 'asc' }, // Ensure we get the initial registration
+            orderBy: { createdAt: 'desc' }, // Get latest to check for today's registration
         })
 
         if (existing) {

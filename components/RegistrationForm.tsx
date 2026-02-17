@@ -110,6 +110,10 @@ export default function RegistrationForm() {
     }
 
     if (step === 'existing') {
+        const lastRegDate = new Date(existingUser.createdAt)
+        const today = new Date()
+        const isToday = lastRegDate.toDateString() === today.toDateString()
+
         return (
             <div className="space-y-6 text-center animate-in fade-in slide-in-from-bottom-4">
                 <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
@@ -117,7 +121,11 @@ export default function RegistrationForm() {
                 </div>
                 <div>
                     <h3 className="text-xl font-bold text-gray-900">Welcome Back, {existingUser.name}!</h3>
-                    <p className="text-gray-500 text-sm mt-1">You have already registered.</p>
+                    <p className="text-gray-500 text-sm mt-1">
+                        {isToday
+                            ? "You have already registered for today's Iftar."
+                            : "You have already registered previously."}
+                    </p>
                 </div>
 
                 <div className="bg-gray-50 p-4 rounded-lg text-left space-y-2 text-sm border border-gray-200">
@@ -142,17 +150,21 @@ export default function RegistrationForm() {
                     >
                         <Download className="h-5 w-5" /> Download Last Ticket
                     </button>
-                    <button
-                        onClick={() => {
-                            setName(existingUser.name)
-                            setDepartment(existingUser.department || '')
-                            setYear(existingUser.year || '')
-                            setStep('details')
-                        }}
-                        className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg transition-colors flex justify-center items-center"
-                    >
-                        Register Again
-                    </button>
+
+                    {!isToday && (
+                        <button
+                            onClick={() => {
+                                setName(existingUser.name)
+                                setDepartment(existingUser.department || '')
+                                setYear(existingUser.year || '')
+                                setStep('details')
+                            }}
+                            className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg transition-colors flex justify-center items-center"
+                        >
+                            Register Again For Today
+                        </button>
+                    )}
+
                     <button
                         onClick={() => setStep('mobile')}
                         className="text-sm text-gray-500 hover:text-gray-700 underline pt-2"
