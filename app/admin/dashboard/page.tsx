@@ -39,8 +39,14 @@ async function getStats(date?: string) {
     })
 
     // Fetch Settings
-    let settings = await prisma.systemSettings.findUnique({ where: { id: 'default' } })
-    if (!settings) settings = { id: 'default', registrationOpen: true }
+    let settings = { id: 'default', registrationOpen: true }
+    try {
+        const dbSettings = await prisma.systemSettings.findUnique({ where: { id: 'default' } })
+        if (dbSettings) settings = dbSettings
+    } catch (error) {
+        console.error('Failed to fetch system settings:', error)
+        // Fallback to default settings is already set
+    }
 
     return { total, admitted, pending, recent, settings }
 }
