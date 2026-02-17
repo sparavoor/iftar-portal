@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation'
 import DashboardActions from '@/components/DashboardActions'
 import DateFilter from '@/components/DateFilter'
 import RegistrationToggle from '@/components/RegistrationToggle'
+import DeleteRegistrationButton from '@/components/DeleteRegistrationButton'
 
 async function getStats(date?: string) {
     let whereClause = {}
@@ -144,6 +145,7 @@ export default async function AdminDashboard({
                                     <th className="px-6 py-3">Year</th>
                                     <th className="px-6 py-3">Status</th>
                                     <th className="px-6 py-3">Time</th>
+                                    <th className="px-6 py-3 text-right">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100">
@@ -166,6 +168,9 @@ export default async function AdminDashboard({
                                             )}
                                         </td>
                                         <td className="px-6 py-3 text-gray-500">{new Date(reg.createdAt).toLocaleDateString()}</td>
+                                        <td className="px-6 py-3 text-right">
+                                            <DeleteRegistrationButton registrationId={reg.registrationId} />
+                                        </td>
                                     </tr>
                                 ))}
                                 {stats.recent.length === 0 && (
