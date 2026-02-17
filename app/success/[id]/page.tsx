@@ -5,15 +5,27 @@ import Link from 'next/link'
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
-async function getRegistration(registrationId: string, retries = 3, delay = 500) {
+async function getRegistration(registrationId: string, retries = 5, delay = 1000) {
     for (let i = 0; i < retries; i++) {
         try {
+            // Try to fetch with cache bypass if using Accelerate
+            // @ts-ignore: cacheStrategy is available via withAccelerate
             const registration = await prisma.registration.findUnique({
                 where: { registrationId },
+                cacheStrategy: { ttl: 0, swr: 0 },
             })
             if (registration) return registration
         } catch (error) {
             console.error(`Attempt ${i + 1} failed:`, error)
+            // Fallback for local dev or if cacheStrategy fails
+            if (i === retries - 1) {
+                try {
+                    const registration = await prisma.registration.findUnique({
+                        where: { registrationId },
+                    })
+                    if (registration) return registration
+                } catch (e) { console.error('Fallback failed', e) }
+            }
         }
         if (i < retries - 1) await new Promise(res => setTimeout(res, delay))
     }
