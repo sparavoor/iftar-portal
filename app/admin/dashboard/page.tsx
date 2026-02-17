@@ -79,6 +79,11 @@ export default async function AdminDashboard({
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* Settings Card */}
+                    <div className="md:col-span-3">
+                        <RegistrationToggle initialState={stats.settings.registrationOpen} />
+                    </div>
+
                     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center space-x-4">
                         <div className="p-3 bg-blue-50 rounded-full text-blue-600">
                             <Users className="h-6 w-6" />

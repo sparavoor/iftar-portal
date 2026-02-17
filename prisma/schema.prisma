@@ -28,3 +28,8 @@ model Admin {
   username String @unique
   password String // Hashed password
 }
+
+model SystemSettings {
+  id              String  @id @default("default")
+  registrationOpen Boolean @default(true)
+}
