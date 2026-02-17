@@ -6,8 +6,8 @@ import { Toaster } from 'sonner'
 const outfit = Outfit({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Iftar Participation Registration Portal',
-  description: 'Register for Iftar 2026',
+  title: 'DAILY IFTHAR REGISTRATION',
+  description: 'SSF FAROOK COLLEGE',
 }
 
 export default function RootLayout({

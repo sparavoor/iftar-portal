@@ -25,8 +25,8 @@ export default async function Home() {
               <Moon className="h-8 w-8 text-yellow-400" fill="currentColor" />
             </div>
           </div>
-          <h1 className="text-2xl font-bold text-white mb-1">Iftar Participation</h1>
-          <p className="text-green-100 text-sm">Registration Portal 2026</p>
+          <h1 className="text-2xl font-bold text-white mb-1">DAILY IFTHAR REGISTRATION</h1>
+          <p className="text-green-100 text-sm">SSF FAROOK COLLEGE</p>
         </div>
 
         <div className="p-6">
