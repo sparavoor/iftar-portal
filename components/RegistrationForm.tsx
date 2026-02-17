@@ -140,11 +140,22 @@ export default function RegistrationForm() {
                         onClick={downloadTicket}
                         className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg flex items-center justify-center gap-2 transition-colors"
                     >
-                        <Download className="h-5 w-5" /> Download Ticket
+                        <Download className="h-5 w-5" /> Download Last Ticket
+                    </button>
+                    <button
+                        onClick={() => {
+                            setName(existingUser.name)
+                            setDepartment(existingUser.department || '')
+                            setYear(existingUser.year || '')
+                            setStep('details')
+                        }}
+                        className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg transition-colors flex justify-center items-center"
+                    >
+                        Register Again
                     </button>
                     <button
                         onClick={() => setStep('mobile')}
-                        className="text-sm text-gray-500 hover:text-gray-700 underline"
+                        className="text-sm text-gray-500 hover:text-gray-700 underline pt-2"
                     >
                         Use a different number
                     </button>

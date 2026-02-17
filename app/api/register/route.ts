@@ -11,17 +11,17 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
         }
 
-        // Check if mobile already exists
-        const existingUser = await prisma.registration.findFirst({
-            where: { mobile },
-        })
+        // Check if mobile already exists - REMOVED to allow multiple registrations
+        // const existingUser = await prisma.registration.findFirst({
+        //     where: { mobile },
+        // })
 
-        if (existingUser) {
-            return NextResponse.json(
-                { error: 'Mobile number already registered', registration: existingUser },
-                { status: 409 }
-            )
-        }
+        // if (existingUser) {
+        //     return NextResponse.json(
+        //         { error: 'Mobile number already registered', registration: existingUser },
+        //         { status: 409 }
+        //     )
+        // }
 
         // Generate Registration ID
         const count = await prisma.registration.count()
