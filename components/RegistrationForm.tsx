@@ -189,14 +189,40 @@ export default function RegistrationForm() {
                 <label className="block text-sm font-medium text-gray-700 mb-1">Department</label>
                 <div className="relative">
                     <Building className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                    <input
-                        type="text"
+                    <select
                         required
-                        placeholder="Enter your department"
-                        className="pl-10 w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-black outline-none"
+                        className="pl-10 w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-black outline-none bg-white appearance-none"
                         value={department}
                         onChange={(e) => setDepartment(e.target.value)}
-                    />
+                    >
+                        <option value="">Select Department</option>
+                        <option value="Arabic & Islamic History">Arabic & Islamic History</option>
+                        <option value="English (Aided)">English (Aided)</option>
+                        <option value="English (SF)">English (SF)</option>
+                        <option value="Functional English (SF)">Functional English (SF)</option>
+                        <option value="Malayalam">Malayalam</option>
+                        <option value="Sociology">Sociology</option>
+                        <option value="Multimedia">Multimedia</option>
+                        <option value="Economics">Economics</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Statistics">Statistics</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Psychology (Aided)">Psychology (Aided)</option>
+                        <option value="Physics">Physics</option>
+                        <option value="Chemistry">Chemistry</option>
+                        <option value="Botany">Botany</option>
+                        <option value="Zoology">Zoology</option>
+                        <option value="Commerce (Aided)">Commerce (Aided)</option>
+                        <option value="BBA">BBA</option>
+                        <option value="Integrated Geology">Integrated Geology</option>
+                        <option value="History">History</option>
+                        <option value="Library & Information Science">Library & Information Science</option>
+                        <option value="Automobile (SF)">Automobile (SF)</option>
+                        <option value="Software Development (SF)">Software Development (SF)</option>
+                        <option value="Commerce (Computer Application – SF)">Commerce (Computer Application – SF)</option>
+                        <option value="Psychology (SF)">Psychology (SF)</option>
+                        <option value="Journalism & Mass Communication (SF)">Journalism & Mass Communication (SF)</option>
+                    </select>
                 </div>
             </div>
 
