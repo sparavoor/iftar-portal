@@ -10,10 +10,7 @@ export default function DeleteRegistrationButton({ registrationId }: { registrat
     const [loading, setLoading] = useState(false)
 
     const handleDelete = async () => {
-        if (!confirm('Are you sure you want to delete this registration? This action cannot be undone.')) {
-            return
-        }
-
+        // Removed confirmation as requested
         setLoading(true)
         try {
             const res = await fetch(`/api/registrations/${registrationId}`, {
