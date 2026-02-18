@@ -259,3 +259,46 @@ https://next-auth.js.org/errors#jwt_session_error decryption operation failed {
 }
  GET /admin/login 200 in 32ms (compile: 4ms, render: 28ms)
  GET /admin/dashboard 307 in 75ms (compile: 3ms, render: 72ms)
+ GET /api/auth/providers 200 in 24ms (compile: 14ms, render: 10ms)
+ GET /api/auth/csrf 200 in 5ms (compile: 1108µs, render: 4ms)
+ POST /api/auth/callback/credentials 401 in 7ms (compile: 884µs, render: 6ms)
+Initializing Prisma Client with Accelerate
+prisma:warn In production, we recommend using `prisma generate --no-engine` (See: `prisma generate --help`)
+Unhandled Rejection: Error [InvalidDatasourceError]: Error validating datasource `db`: the URL must contain a valid API key
+    at prismaClientSingleton (lib/prisma.ts:9:35)
+    at module evaluation (lib/prisma.ts:35:49)
+   7 |     if (url?.startsWith('prisma://')) {
+   8 |         console.log('Initializing Prisma Client with Accelerate')
+>  9 |         return new PrismaClient().$extends(withAccelerate())
+     |                                   ^
+  10 |     }
+  11 |
+  12 |     console.log('Initializing Prisma Client (Standard/Local)') {
+  clientVersion: '5.10.2',
+  cause: undefined,
+  isRetryable: false,
+  code: 'P6001'
+}
+Failed to fetch settings: Error [PrismaClientKnownRequestError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].systemSettings.findUnique()` invocation in
+/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__3f345915._.js:116:231
+
+  113 } // Default
+  114 ;
+  115 try {
+→ 116     const dbSettings = await __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].systemSettings.findUnique(
+Error validating datasource `db`: the URL must contain a valid API key
+    at <unknown> (app/page.tsx:11:52)
+    at async Home (app/page.tsx:11:24)
+   9 |   let settings = { registrationOpen: true } // Default
+  10 |   try {
+> 11 |     const dbSettings = await prisma.systemSettings.findUnique({ where: { id: 'default' } })
+     |                                                    ^
+  12 |     if (dbSettings) settings = dbSettings
+  13 |   } catch (error) {
+  14 |     console.error("Failed to fetch settings:", error) {
+  code: 'P6001',
+  clientVersion: '5.10.2',
+  meta: [Object]
+}
+ GET / 200 in 198ms (compile: 56ms, render: 142ms)
