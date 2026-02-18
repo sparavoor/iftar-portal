@@ -15,8 +15,7 @@
 - Environments: .env
 
 ✓ Starting...
-⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-✓ Ready in 585ms
+✓ Ready in 402ms
 Initializing Prisma Client with Accelerate
 prisma:warn In production, we recommend using `prisma generate --no-engine` (See: `prisma generate --help`)
 Failed to fetch settings: Error [PrismaClientKnownRequestError]: 
@@ -92,130 +91,45 @@ Error [InvalidDatasourceError]: Error validating datasource `db`: the URL must c
   isRetryable: false,
   code: 'P6001'
 }
- GET / 200 in 1510ms (compile: 1086ms, render: 424ms)
-⨯ Error [PrismaClientKnownRequestError]: 
-Invalid `{imported module ./Desktop/Iftar 2026/iftar-participation-portal/lib/prisma.ts}["prisma"].registration.count()` invocation in
-/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__c0a02d5a._.js:297:220
-
-  294         }
-  295     };
-  296 }
-→ 297 const total = await {imported module ./Desktop/Iftar 2026/iftar-participation-portal/lib/prisma.ts}["prisma"].registration.count(
-Error validating datasource `db`: the URL must contain a valid API key
-    at <unknown> (app/admin/dashboard/page.tsx:30:45)
-    at async getStats (app/admin/dashboard/page.tsx:30:19)
-    at async AdminDashboard (app/admin/dashboard/page.tsx:65:19)
-  28 |     }
-  29 |
-> 30 |     const total = await prisma.registration.count({ where: whereClause })
-     |                                             ^
-  31 |     const admitted = await prisma.registration.count({ where: { ...whereClause, admitted: true } })
-  32 |     const pending = total - admitted
-  33 | {
-  code: 'P6001',
-  clientVersion: '5.10.2',
-  meta: [Object],
-  digest: '2725205550'
+ GET /admin/login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fadmin%2Fdashboard%3Fdate%3D2026-02-17 200 in 602ms (compile: 524ms, render: 77ms)
+ GET / 200 in 599ms (compile: 109ms, render: 490ms)
+[next-auth][error][JWT_SESSION_ERROR] 
+https://next-auth.js.org/errors#jwt_session_error decryption operation failed {
+  message: 'decryption operation failed',
+  stack: 'JWEDecryptionFailed: decryption operation failed\n' +
+    '    at gcmDecrypt (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:1693:15)\n' +
+    '    at decrypt (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:1716:20)\n' +
+    '    at flattenedDecrypt (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:3213:52)\n' +
+    '    at async compactDecrypt (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:3267:23)\n' +
+    '    at async jwtDecrypt (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:4729:23)\n' +
+    '    at async Object.decode (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:12397:25)\n' +
+    '    at async Object.session (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:13710:34)\n' +
+    '    at async AuthHandler (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:15711:37)\n' +
+    '    at async getServerSession (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:18846:21)\n' +
+    '    at async ProtectedLayout (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__f6f8fc5b._.js:163:21)',
+  name: 'JWEDecryptionFailed'
 }
- GET /admin/dashboard 500 in 800ms (compile: 713ms, proxy.ts: 38ms, render: 49ms)
-Check Registration Error: Error [PrismaClientKnownRequestError]: 
-Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].registration.findFirst()` invocation in
-/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/[root-of-the-server]__f21902a5._.js:105:229
-
-  102         status: 400
-  103     });
-  104 }
-→ 105 const existing = await __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].registration.findFirst(
-Error validating datasource `db`: the URL must contain a valid API key
-    at <unknown> (app/api/check-registration/route.ts:15:52)
-    at async POST (app/api/check-registration/route.ts:15:26)
-  13 |         }
-  14 |
-> 15 |         const existing = await prisma.registration.findFirst({
-     |                                                    ^
-  16 |             where: { mobile },
-  17 |             orderBy: { createdAt: 'desc' }, // Get latest to check for today's registration
-  18 |         }) {
-  code: 'P6001',
-  clientVersion: '5.10.2',
-  meta: [Object]
+[next-auth][error][JWT_SESSION_ERROR] 
+https://next-auth.js.org/errors#jwt_session_error decryption operation failed {
+  message: 'decryption operation failed',
+  stack: 'JWEDecryptionFailed: decryption operation failed\n' +
+    '    at gcmDecrypt (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:1693:15)\n' +
+    '    at decrypt (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:1716:20)\n' +
+    '    at flattenedDecrypt (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:3213:52)\n' +
+    '    at async compactDecrypt (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:3267:23)\n' +
+    '    at async jwtDecrypt (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:4729:23)\n' +
+    '    at async Object.decode (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:12397:25)\n' +
+    '    at async Object.session (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:13710:34)\n' +
+    '    at async AuthHandler (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:15711:37)\n' +
+    '    at async getServerSession (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:18846:21)\n' +
+    '    at async AdminDashboard (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__17f5807f._.js:255:21)',
+  name: 'JWEDecryptionFailed'
 }
- POST /api/check-registration 500 in 182ms (compile: 122ms, render: 60ms)
-Registration Error: Error [PrismaClientKnownRequestError]: 
-Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].registration.findFirst()` invocation in
-/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/[root-of-the-server]__aee9a706._.js:109:234
-
-  106 startOfDay.setHours(0, 0, 0, 0);
-  107 const endOfDay = new Date();
-  108 endOfDay.setHours(23, 59, 59, 999);
-→ 109 const existingToday = await __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].registration.findFirst(
-Error validating datasource `db`: the URL must contain a valid API key
-    at <unknown> (app/api/register/route.ts:21:57)
-    at async POST (app/api/register/route.ts:21:31)
-  19 |         endOfDay.setHours(23, 59, 59, 999)
-  20 |
-> 21 |         const existingToday = await prisma.registration.findFirst({
-     |                                                         ^
-  22 |             where: {
-  23 |                 mobile,
-  24 |                 createdAt: { {
-  code: 'P6001',
-  clientVersion: '5.10.2',
-  meta: [Object]
-}
- POST /api/register 500 in 88ms (compile: 46ms, render: 42ms)
-⨯ Error [PrismaClientKnownRequestError]: 
-Invalid `{imported module ./Desktop/Iftar 2026/iftar-participation-portal/lib/prisma.ts}["prisma"].registration.count()` invocation in
-/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__c0a02d5a._.js:297:220
-
-  294         }
-  295     };
-  296 }
-→ 297 const total = await {imported module ./Desktop/Iftar 2026/iftar-participation-portal/lib/prisma.ts}["prisma"].registration.count(
-Error validating datasource `db`: the URL must contain a valid API key
-    at <unknown> (app/admin/dashboard/page.tsx:30:45)
-    at async getStats (app/admin/dashboard/page.tsx:30:19)
-    at async AdminDashboard (app/admin/dashboard/page.tsx:65:19)
-  28 |     }
-  29 |
-> 30 |     const total = await prisma.registration.count({ where: whereClause })
-     |                                             ^
-  31 |     const admitted = await prisma.registration.count({ where: { ...whereClause, admitted: true } })
-  32 |     const pending = total - admitted
-  33 | {
-  code: 'P6001',
-  clientVersion: '5.10.2',
-  meta: [Object],
-  digest: '2725205550'
-}
- GET /admin/dashboard 500 in 39ms (compile: 3ms, proxy.ts: 6ms, render: 29ms)
-  Reload env: .env
-Failed to fetch settings: Error [PrismaClientKnownRequestError]: 
-Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].systemSettings.findUnique()` invocation in
-/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__3f345915._.js:116:231
-
-  113 } // Default
-  114 ;
-  115 try {
-→ 116     const dbSettings = await __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].systemSettings.findUnique(
-Error validating datasource `db`: the URL must contain a valid API key
-    at <unknown> (app/page.tsx:11:52)
-    at async Home (app/page.tsx:11:24)
-   9 |   let settings = { registrationOpen: true } // Default
-  10 |   try {
-> 11 |     const dbSettings = await prisma.systemSettings.findUnique({ where: { id: 'default' } })
-     |                                                    ^
-  12 |     if (dbSettings) settings = dbSettings
-  13 |   } catch (error) {
-  14 |     console.error("Failed to fetch settings:", error) {
-  code: 'P6001',
-  clientVersion: '5.10.2',
-  meta: [Object]
-}
- GET / 200 in 79ms (compile: 38ms, render: 41ms)
+ GET /admin/login 200 in 25ms (compile: 1482µs, render: 24ms)
+ GET /admin/dashboard 307 in 482ms (compile: 394ms, render: 88ms)
 Initializing Prisma Client with Accelerate
 prisma:warn In production, we recommend using `prisma generate --no-engine` (See: `prisma generate --help`)
- GET /api/auth/signin?callbackUrl=%2Fadmin%2Fdashboard 302 in 716ms (compile: 706ms, render: 10ms)
+ GET /api/auth/providers 200 in 506ms (compile: 493ms, render: 13ms)
 Unhandled Rejection: Error [InvalidDatasourceError]: Error validating datasource `db`: the URL must contain a valid API key
     at prismaClientSingleton (lib/prisma.ts:9:35)
     at module evaluation (lib/prisma.ts:35:49)
@@ -231,10 +145,8 @@ Unhandled Rejection: Error [InvalidDatasourceError]: Error validating datasource
   isRetryable: false,
   code: 'P6001'
 }
- GET /admin/login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fadmin%2Fdashboard 200 in 263ms (compile: 222ms, render: 41ms)
- GET /api/auth/providers 200 in 14ms (compile: 6ms, render: 9ms)
- GET /api/auth/csrf 200 in 7ms (compile: 1015µs, render: 6ms)
- POST /api/auth/callback/credentials 401 in 7ms (compile: 1390µs, render: 6ms)
+ GET /api/auth/csrf 200 in 8ms (compile: 3ms, render: 5ms)
+ POST /api/auth/callback/credentials 401 in 8ms (compile: 1214µs, render: 7ms)
 Initializing Prisma Client with Accelerate
 prisma:warn In production, we recommend using `prisma generate --no-engine` (See: `prisma generate --help`)
 Unhandled Rejection: Error [InvalidDatasourceError]: Error validating datasource `db`: the URL must contain a valid API key
@@ -252,9 +164,10 @@ Unhandled Rejection: Error [InvalidDatasourceError]: Error validating datasource
   isRetryable: false,
   code: 'P6001'
 }
- GET /api/auth/providers 200 in 12ms (compile: 5ms, render: 7ms)
- GET /api/auth/csrf 200 in 7ms (compile: 1320µs, render: 6ms)
- POST /api/auth/callback/credentials 401 in 7ms (compile: 980µs, render: 6ms)
+ GET /admin/login 200 in 27ms (compile: 3ms, render: 23ms)
+ GET /api/auth/providers 200 in 10ms (compile: 3ms, render: 6ms)
+ GET /api/auth/csrf 200 in 5ms (compile: 1569µs, render: 3ms)
+ POST /api/auth/callback/credentials 401 in 7ms (compile: 925µs, render: 6ms)
 Initializing Prisma Client with Accelerate
 prisma:warn In production, we recommend using `prisma generate --no-engine` (See: `prisma generate --help`)
 Unhandled Rejection: Error [InvalidDatasourceError]: Error validating datasource `db`: the URL must contain a valid API key
@@ -272,31 +185,9 @@ Unhandled Rejection: Error [InvalidDatasourceError]: Error validating datasource
   isRetryable: false,
   code: 'P6001'
 }
-Registration Error: Error [PrismaClientKnownRequestError]: 
-Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].registration.findFirst()` invocation in
-/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/[root-of-the-server]__aee9a706._.js:109:234
-
-  106 startOfDay.setHours(0, 0, 0, 0);
-  107 const endOfDay = new Date();
-  108 endOfDay.setHours(23, 59, 59, 999);
-→ 109 const existingToday = await __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].registration.findFirst(
-Error validating datasource `db`: the URL must contain a valid API key
-    at <unknown> (app/api/register/route.ts:21:57)
-    at async POST (app/api/register/route.ts:21:31)
-  19 |         endOfDay.setHours(23, 59, 59, 999)
-  20 |
-> 21 |         const existingToday = await prisma.registration.findFirst({
-     |                                                         ^
-  22 |             where: {
-  23 |                 mobile,
-  24 |                 createdAt: { {
-  code: 'P6001',
-  clientVersion: '5.10.2',
-  meta: [Object]
-}
- POST /api/register 500 in 63ms (compile: 11ms, render: 52ms)
- GET /api/auth/signin?callbackUrl=%2Fadmin%2Fdashboard%3Fdate%3D2026-02-17 302 in 7ms (compile: 2ms, render: 4ms)
- GET /admin/login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fadmin%2Fdashboard%3Fdate%3D2026-02-17 200 in 19ms (compile: 1934µs, render: 17ms)
+ GET /api/auth/providers 200 in 16ms (compile: 6ms, render: 10ms)
+ GET /api/auth/csrf 200 in 9ms (compile: 2ms, render: 7ms)
+ POST /api/auth/callback/credentials 401 in 11ms (compile: 1394µs, render: 10ms)
 Initializing Prisma Client with Accelerate
 prisma:warn In production, we recommend using `prisma generate --no-engine` (See: `prisma generate --help`)
 Unhandled Rejection: Error [InvalidDatasourceError]: Error validating datasource `db`: the URL must contain a valid API key
@@ -314,76 +205,14 @@ Unhandled Rejection: Error [InvalidDatasourceError]: Error validating datasource
   isRetryable: false,
   code: 'P6001'
 }
-  Reload env: .env
-Failed to fetch settings: Error [PrismaClientKnownRequestError]: 
-Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].systemSettings.findUnique()` invocation in
-/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__3f345915._.js:116:231
-
-  113 } // Default
-  114 ;
-  115 try {
-→ 116     const dbSettings = await __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].systemSettings.findUnique(
-Error validating datasource `db`: the URL must contain a valid API key
-    at <unknown> (app/page.tsx:11:52)
-    at async Home (app/page.tsx:11:24)
-   9 |   let settings = { registrationOpen: true } // Default
-  10 |   try {
-> 11 |     const dbSettings = await prisma.systemSettings.findUnique({ where: { id: 'default' } })
-     |                                                    ^
-  12 |     if (dbSettings) settings = dbSettings
-  13 |   } catch (error) {
-  14 |     console.error("Failed to fetch settings:", error) {
-  code: 'P6001',
-  clientVersion: '5.10.2',
-  meta: [Object]
-}
- GET / 200 in 105ms (compile: 58ms, render: 48ms)
- GET /admin/login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fadmin%2Fdashboard%3Fdate%3D2026-02-17 200 in 21ms (compile: 7ms, render: 14ms)
-⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
-⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
- We detected multiple lockfiles and selected the directory of /Users/papernpencil/package-lock.json as the root directory.
- To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
-   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
- Detected additional lockfiles: 
-   * /Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/package-lock.json
-
-▲ Next.js 16.1.6 (Turbopack)
-- Local:         http://localhost:3000
-- Network:       http://192.168.220.53:3000
-- Environments: .env
-
-✓ Starting...
-⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-✓ Ready in 543ms
+ GET /api/auth/providers 200 in 8ms (compile: 3ms, render: 5ms)
+ GET /api/auth/csrf 200 in 6ms (compile: 929µs, render: 5ms)
+ POST /api/auth/callback/credentials 401 in 7ms (compile: 1281µs, render: 6ms)
 Initializing Prisma Client with Accelerate
 prisma:warn In production, we recommend using `prisma generate --no-engine` (See: `prisma generate --help`)
-Failed to fetch settings: Error [PrismaClientKnownRequestError]: 
-Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].systemSettings.findUnique()` invocation in
-/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__3f345915._.js:116:231
-
-  113 } // Default
-  114 ;
-  115 try {
-→ 116     const dbSettings = await __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].systemSettings.findUnique(
-Error validating datasource `db`: the URL must contain a valid API key
-    at <unknown> (app/page.tsx:11:52)
-    at async Home (app/page.tsx:11:24)
-   9 |   let settings = { registrationOpen: true } // Default
-  10 |   try {
-> 11 |     const dbSettings = await prisma.systemSettings.findUnique({ where: { id: 'default' } })
-     |                                                    ^
-  12 |     if (dbSettings) settings = dbSettings
-  13 |   } catch (error) {
-  14 |     console.error("Failed to fetch settings:", error) {
-  code: 'P6001',
-  clientVersion: '5.10.2',
-  meta: [Object]
-}
-Error [InvalidDatasourceError]: Error validating datasource `db`: the URL must contain a valid API key
+Unhandled Rejection: Error [InvalidDatasourceError]: Error validating datasource `db`: the URL must contain a valid API key
     at prismaClientSingleton (lib/prisma.ts:9:35)
     at module evaluation (lib/prisma.ts:35:49)
-    at module evaluation (app/page.tsx:1:1)
-    at module evaluation (.next/dev/server/chunks/ssr/[root-of-the-server]__3f345915._.js:277:47)
    7 |     if (url?.startsWith('prisma://')) {
    8 |         console.log('Initializing Prisma Client with Accelerate')
 >  9 |         return new PrismaClient().$extends(withAccelerate())
@@ -396,64 +225,37 @@ Error [InvalidDatasourceError]: Error validating datasource `db`: the URL must c
   isRetryable: false,
   code: 'P6001'
 }
-⨯ unhandledRejection: Error [InvalidDatasourceError]: Error validating datasource `db`: the URL must contain a valid API key
-    at prismaClientSingleton (lib/prisma.ts:9:35)
-    at module evaluation (lib/prisma.ts:35:49)
-    at module evaluation (app/page.tsx:1:1)
-    at module evaluation (.next/dev/server/chunks/ssr/[root-of-the-server]__3f345915._.js:277:47)
-   7 |     if (url?.startsWith('prisma://')) {
-   8 |         console.log('Initializing Prisma Client with Accelerate')
->  9 |         return new PrismaClient().$extends(withAccelerate())
-     |                                   ^
-  10 |     }
-  11 |
-  12 |     console.log('Initializing Prisma Client (Standard/Local)') {
-  clientVersion: '5.10.2',
-  cause: undefined,
-  isRetryable: false,
-  code: 'P6001'
+[next-auth][error][JWT_SESSION_ERROR] 
+https://next-auth.js.org/errors#jwt_session_error decryption operation failed {
+  message: 'decryption operation failed',
+  stack: 'JWEDecryptionFailed: decryption operation failed\n' +
+    '    at gcmDecrypt (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:1693:15)\n' +
+    '    at decrypt (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:1716:20)\n' +
+    '    at flattenedDecrypt (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:3213:52)\n' +
+    '    at async compactDecrypt (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:3267:23)\n' +
+    '    at async jwtDecrypt (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:4729:23)\n' +
+    '    at async Object.decode (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:12397:25)\n' +
+    '    at async Object.session (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:13710:34)\n' +
+    '    at async AuthHandler (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:15711:37)\n' +
+    '    at async getServerSession (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:18846:21)\n' +
+    '    at async ProtectedLayout (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__f6f8fc5b._.js:163:21)',
+  name: 'JWEDecryptionFailed'
 }
-⨯ unhandledRejection:  Error [InvalidDatasourceError]: Error validating datasource `db`: the URL must contain a valid API key
-    at prismaClientSingleton (lib/prisma.ts:9:35)
-    at module evaluation (lib/prisma.ts:35:49)
-    at module evaluation (app/page.tsx:1:1)
-    at module evaluation (.next/dev/server/chunks/ssr/[root-of-the-server]__3f345915._.js:277:47)
-   7 |     if (url?.startsWith('prisma://')) {
-   8 |         console.log('Initializing Prisma Client with Accelerate')
->  9 |         return new PrismaClient().$extends(withAccelerate())
-     |                                   ^
-  10 |     }
-  11 |
-  12 |     console.log('Initializing Prisma Client (Standard/Local)') {
-  clientVersion: '5.10.2',
-  cause: undefined,
-  isRetryable: false,
-  code: 'P6001'
+[next-auth][error][JWT_SESSION_ERROR] 
+https://next-auth.js.org/errors#jwt_session_error decryption operation failed {
+  message: 'decryption operation failed',
+  stack: 'JWEDecryptionFailed: decryption operation failed\n' +
+    '    at gcmDecrypt (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:1693:15)\n' +
+    '    at decrypt (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:1716:20)\n' +
+    '    at flattenedDecrypt (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:3213:52)\n' +
+    '    at async compactDecrypt (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:3267:23)\n' +
+    '    at async jwtDecrypt (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:4729:23)\n' +
+    '    at async Object.decode (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:12397:25)\n' +
+    '    at async Object.session (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:13710:34)\n' +
+    '    at async AuthHandler (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:15711:37)\n' +
+    '    at async getServerSession (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__78719652._.js:18846:21)\n' +
+    '    at async AdminDashboard (/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__17f5807f._.js:255:21)',
+  name: 'JWEDecryptionFailed'
 }
- GET /admin/login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fadmin%2Fdashboard%3Fdate%3D2026-02-17 200 in 620ms (compile: 541ms, render: 79ms)
- GET / 200 in 615ms (compile: 134ms, render: 481ms)
-  Reload env: .env
-Failed to fetch settings: Error [PrismaClientKnownRequestError]: 
-Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].systemSettings.findUnique()` invocation in
-/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__3f345915._.js:116:231
-
-  113 } // Default
-  114 ;
-  115 try {
-→ 116     const dbSettings = await __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].systemSettings.findUnique(
-Error validating datasource `db`: the URL must contain a valid API key
-    at <unknown> (app/page.tsx:11:52)
-    at async Home (app/page.tsx:11:24)
-   9 |   let settings = { registrationOpen: true } // Default
-  10 |   try {
-> 11 |     const dbSettings = await prisma.systemSettings.findUnique({ where: { id: 'default' } })
-     |                                                    ^
-  12 |     if (dbSettings) settings = dbSettings
-  13 |   } catch (error) {
-  14 |     console.error("Failed to fetch settings:", error) {
-  code: 'P6001',
-  clientVersion: '5.10.2',
-  meta: [Object]
-}
- GET /admin/login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fadmin%2Fdashboard%3Fdate%3D2026-02-17 200 in 94ms (compile: 32ms, render: 62ms)
- GET / 200 in 28ms (compile: 8ms, render: 20ms)
+ GET /admin/login 200 in 32ms (compile: 4ms, render: 28ms)
+ GET /admin/dashboard 307 in 75ms (compile: 3ms, render: 72ms)
