@@ -93,3 +93,99 @@ Error [InvalidDatasourceError]: Error validating datasource `db`: the URL must c
   code: 'P6001'
 }
  GET / 200 in 1510ms (compile: 1086ms, render: 424ms)
+⨯ Error [PrismaClientKnownRequestError]: 
+Invalid `{imported module ./Desktop/Iftar 2026/iftar-participation-portal/lib/prisma.ts}["prisma"].registration.count()` invocation in
+/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__c0a02d5a._.js:297:220
+
+  294         }
+  295     };
+  296 }
+→ 297 const total = await {imported module ./Desktop/Iftar 2026/iftar-participation-portal/lib/prisma.ts}["prisma"].registration.count(
+Error validating datasource `db`: the URL must contain a valid API key
+    at <unknown> (app/admin/dashboard/page.tsx:30:45)
+    at async getStats (app/admin/dashboard/page.tsx:30:19)
+    at async AdminDashboard (app/admin/dashboard/page.tsx:65:19)
+  28 |     }
+  29 |
+> 30 |     const total = await prisma.registration.count({ where: whereClause })
+     |                                             ^
+  31 |     const admitted = await prisma.registration.count({ where: { ...whereClause, admitted: true } })
+  32 |     const pending = total - admitted
+  33 | {
+  code: 'P6001',
+  clientVersion: '5.10.2',
+  meta: [Object],
+  digest: '2725205550'
+}
+ GET /admin/dashboard 500 in 800ms (compile: 713ms, proxy.ts: 38ms, render: 49ms)
+Check Registration Error: Error [PrismaClientKnownRequestError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].registration.findFirst()` invocation in
+/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/[root-of-the-server]__f21902a5._.js:105:229
+
+  102         status: 400
+  103     });
+  104 }
+→ 105 const existing = await __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].registration.findFirst(
+Error validating datasource `db`: the URL must contain a valid API key
+    at <unknown> (app/api/check-registration/route.ts:15:52)
+    at async POST (app/api/check-registration/route.ts:15:26)
+  13 |         }
+  14 |
+> 15 |         const existing = await prisma.registration.findFirst({
+     |                                                    ^
+  16 |             where: { mobile },
+  17 |             orderBy: { createdAt: 'desc' }, // Get latest to check for today's registration
+  18 |         }) {
+  code: 'P6001',
+  clientVersion: '5.10.2',
+  meta: [Object]
+}
+ POST /api/check-registration 500 in 182ms (compile: 122ms, render: 60ms)
+Registration Error: Error [PrismaClientKnownRequestError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].registration.findFirst()` invocation in
+/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/[root-of-the-server]__aee9a706._.js:109:234
+
+  106 startOfDay.setHours(0, 0, 0, 0);
+  107 const endOfDay = new Date();
+  108 endOfDay.setHours(23, 59, 59, 999);
+→ 109 const existingToday = await __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].registration.findFirst(
+Error validating datasource `db`: the URL must contain a valid API key
+    at <unknown> (app/api/register/route.ts:21:57)
+    at async POST (app/api/register/route.ts:21:31)
+  19 |         endOfDay.setHours(23, 59, 59, 999)
+  20 |
+> 21 |         const existingToday = await prisma.registration.findFirst({
+     |                                                         ^
+  22 |             where: {
+  23 |                 mobile,
+  24 |                 createdAt: { {
+  code: 'P6001',
+  clientVersion: '5.10.2',
+  meta: [Object]
+}
+ POST /api/register 500 in 88ms (compile: 46ms, render: 42ms)
+⨯ Error [PrismaClientKnownRequestError]: 
+Invalid `{imported module ./Desktop/Iftar 2026/iftar-participation-portal/lib/prisma.ts}["prisma"].registration.count()` invocation in
+/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__c0a02d5a._.js:297:220
+
+  294         }
+  295     };
+  296 }
+→ 297 const total = await {imported module ./Desktop/Iftar 2026/iftar-participation-portal/lib/prisma.ts}["prisma"].registration.count(
+Error validating datasource `db`: the URL must contain a valid API key
+    at <unknown> (app/admin/dashboard/page.tsx:30:45)
+    at async getStats (app/admin/dashboard/page.tsx:30:19)
+    at async AdminDashboard (app/admin/dashboard/page.tsx:65:19)
+  28 |     }
+  29 |
+> 30 |     const total = await prisma.registration.count({ where: whereClause })
+     |                                             ^
+  31 |     const admitted = await prisma.registration.count({ where: { ...whereClause, admitted: true } })
+  32 |     const pending = total - admitted
+  33 | {
+  code: 'P6001',
+  clientVersion: '5.10.2',
+  meta: [Object],
+  digest: '2725205550'
+}
+ GET /admin/dashboard 500 in 39ms (compile: 3ms, proxy.ts: 6ms, render: 29ms)
