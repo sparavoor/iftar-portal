@@ -1,9 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Switch } from '@headlessui/react' // Optional, or use simple button if no library
 import { toast } from 'sonner'
-import { Loader2, Lock, Unlock } from 'lucide-react'
+import { Lock, Unlock } from 'lucide-react'
 
 export default function RegistrationToggle({ initialState }: { initialState: boolean }) {
     const [enabled, setEnabled] = useState(initialState)
@@ -26,7 +25,7 @@ export default function RegistrationToggle({ initialState }: { initialState: boo
             } else {
                 toast.error('Failed to update settings')
             }
-        } catch (error) {
+        } catch {
             toast.error('Network error')
         } finally {
             setLoading(false)

@@ -9,7 +9,6 @@ async function getRegistration(registrationId: string, retries = 5, delay = 1000
     for (let i = 0; i < retries; i++) {
         try {
             // Try to fetch with cache bypass if using Accelerate
-            // @ts-ignore: cacheStrategy is available via withAccelerate
             const registration = await prisma.registration.findUnique({
                 where: { registrationId },
                 cacheStrategy: { ttl: 0, swr: 0 },
@@ -60,7 +59,7 @@ export default async function SuccessPage(props: { params: Promise<{ id: string 
                 <div className="text-center space-y-4">
                     <h1 className="text-2xl font-bold text-gray-900">Registration Not Found</h1>
                     <div className="text-gray-500">
-                        <p>We couldn't find registration ID:</p>
+                        <p>We couldn&apos;t find registration ID:</p>
                         <p className="font-mono font-bold text-gray-700 my-2">{decodedId}</p>
                         <p className="text-xs text-gray-400"> (Raw: {rawId})</p>
                     </div>
@@ -82,7 +81,7 @@ export default async function SuccessPage(props: { params: Promise<{ id: string 
 
     return (
         <main className="min-h-screen bg-gradient-to-b from-green-50 to-green-100 flex flex-col items-center justify-center p-4">
-            <SuccessCard registration={serializedRegistration as any} />
+            <SuccessCard registration={serializedRegistration} />
         </main>
     )
 }

@@ -24,7 +24,7 @@ export default function DeleteRegistrationButton({ registrationId }: { registrat
                 const data = await res.json()
                 toast.error(data.error || 'Failed to delete registration')
             }
-        } catch (error) {
+        } catch {
             toast.error('Something went wrong')
         } finally {
             setLoading(false)

@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma'
+import { Prisma } from '@prisma/client'
 import { Users, UserCheck, Clock, QrCode, LogOut } from 'lucide-react'
 import Link from 'next/link'
 import { getServerSession } from 'next-auth'
@@ -9,7 +10,7 @@ import RegistrationToggle from '@/components/RegistrationToggle'
 import DeleteRegistrationButton from '@/components/DeleteRegistrationButton'
 
 async function getStats(date?: string) {
-    let whereClause = {}
+    let whereClause: Prisma.RegistrationWhereInput = {}
 
     if (date) {
         const startOfDay = new Date(date)
@@ -149,7 +150,7 @@ export default async function AdminDashboard({
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100">
-                                {stats.recent.map((reg) => (
+                                {stats.recent.map((reg: any) => (
                                     <tr key={reg.id} className="hover:bg-gray-50">
                                         <td className="px-6 py-3 font-mono text-gray-600">{reg.registrationId}</td>
                                         <td className="px-6 py-3 text-gray-600 font-medium">{reg.mobile}</td>

@@ -17,7 +17,16 @@ export default function RegistrationForm() {
     const [year, setYear] = useState('')
 
     // Existing User Data
-    const [existingUser, setExistingUser] = useState<any>(null)
+    interface Registration {
+        id: string
+        registrationId: string
+        name: string
+        mobile: string
+        department: string | null
+        year: string | null
+        createdAt: string
+    }
+    const [existingUser, setExistingUser] = useState<Registration | null>(null)
 
     const handleMobileSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -42,7 +51,7 @@ export default function RegistrationForm() {
             } else {
                 setStep('details')
             }
-        } catch (error) {
+        } catch {
             toast.error('Network error. Please try again.')
         } finally {
             setLoading(false)
@@ -68,7 +77,7 @@ export default function RegistrationForm() {
             } else {
                 toast.error(data.error || 'Registration failed')
             }
-        } catch (error) {
+        } catch {
             toast.error('Something went wrong')
         } finally {
             setLoading(false)
@@ -109,7 +118,7 @@ export default function RegistrationForm() {
         )
     }
 
-    if (step === 'existing') {
+    if (step === 'existing' && existingUser) {
         const lastRegDate = new Date(existingUser.createdAt)
         const today = new Date()
         const isToday = lastRegDate.toDateString() === today.toDateString()

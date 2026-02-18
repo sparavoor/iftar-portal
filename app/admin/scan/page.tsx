@@ -1,23 +1,31 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
-import { ArrowLeft, CheckCircle, XCircle, Loader2, Camera, AlertTriangle } from 'lucide-react'
+import { ArrowLeft, CheckCircle, Loader2, Camera, AlertTriangle } from 'lucide-react'
 import Link from 'next/link'
 import { toast } from 'sonner'
-import { useRouter } from 'next/navigation'
 import { Html5Qrcode } from 'html5-qrcode'
 
-export default function ScanPage() {
-    const router = useRouter()
+interface Registration {
+    id: string
+    registrationId: string
+    name: string
+    mobile: string
+    department: string | null
+    year: string | null
+    admitted: boolean
+    admittedAt: string | null
+}
 
+export default function ScanPage() {
     // States
     const [scanning, setScanning] = useState(false)
     const [manualId, setManualId] = useState('')
     const [cameraError, setCameraError] = useState<string | null>(null)
 
     // Data States
-    const [previewData, setPreviewData] = useState<any | null>(null) // For verification step
-    const [scanResult, setScanResult] = useState<{ success: boolean; message: string; data?: any } | null>(null) // Final result
+    const [previewData, setPreviewData] = useState<Registration | null>(null) // For verification step
+    const [scanResult, setScanResult] = useState<{ success: boolean; message: string; data?: Registration } | null>(null) // Final result
 
     const scannerRef = useRef<Html5Qrcode | null>(null)
 
@@ -117,16 +125,16 @@ export default function ScanPage() {
                     try {
                         const json = JSON.parse(decodedText)
                         if (json.id) registrationId = json.id
-                    } catch (e) {
+                    } catch {
                         // use raw text
                     }
                     fetchRegistrationDetails(registrationId)
                 },
-                (errorMessage) => {
+                () => {
                     // ignore frame errors
                 }
             )
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error("Error starting scanner", err)
             setScanning(false)
             setCameraError("Could not access camera. Ensure you are on a mobile device/HTTPS and have granted permission.")

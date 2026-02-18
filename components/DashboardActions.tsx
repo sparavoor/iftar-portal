@@ -7,10 +7,22 @@ import autoTable from 'jspdf-autotable'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
+interface Registration {
+    id: string
+    registrationId: string
+    name: string
+    mobile: string
+    department: string | null
+    year: string | null
+    admitted: boolean
+    admittedAt: string | null
+    createdAt: string
+}
+
 export default function DashboardActions({ date }: { date?: string }) {
     const [loading, setLoading] = useState(false)
 
-    const fetchData = async () => {
+    const fetchData = async (): Promise<Registration[]> => {
         const url = date ? `/api/registrations?date=${date}` : '/api/registrations'
         const res = await fetch(url)
         if (!res.ok) throw new Error('Failed to fetch data')
@@ -25,7 +37,7 @@ export default function DashboardActions({ date }: { date?: string }) {
             const rawData = await fetchData()
 
             // Map data for Excel to match desired column order
-            const data = rawData.map((reg: any) => ({
+            const data = rawData.map((reg) => ({
                 "Registration ID": reg.registrationId,
                 "Mobile": reg.mobile,
                 "Name": reg.name,
@@ -63,7 +75,7 @@ export default function DashboardActions({ date }: { date?: string }) {
             doc.setTextColor(100)
             doc.text(`Generated on: ${new Date().toLocaleString()}`, 14, 30)
 
-            const tableData = data.map((reg: any) => [
+            const tableData = data.map((reg) => [
                 reg.registrationId,
                 reg.mobile,
                 reg.name,

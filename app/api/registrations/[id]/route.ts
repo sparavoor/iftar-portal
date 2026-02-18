@@ -28,6 +28,7 @@ export async function GET(
 
         return NextResponse.json({ registration })
     } catch (error) {
+        console.error('Fetch Error:', error)
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
     }
 }
