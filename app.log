@@ -432,3 +432,28 @@ Error [InvalidDatasourceError]: Error validating datasource `db`: the URL must c
 }
  GET /admin/login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fadmin%2Fdashboard%3Fdate%3D2026-02-17 200 in 620ms (compile: 541ms, render: 79ms)
  GET / 200 in 615ms (compile: 134ms, render: 481ms)
+  Reload env: .env
+Failed to fetch settings: Error [PrismaClientKnownRequestError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].systemSettings.findUnique()` invocation in
+/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__3f345915._.js:116:231
+
+  113 } // Default
+  114 ;
+  115 try {
+→ 116     const dbSettings = await __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].systemSettings.findUnique(
+Error validating datasource `db`: the URL must contain a valid API key
+    at <unknown> (app/page.tsx:11:52)
+    at async Home (app/page.tsx:11:24)
+   9 |   let settings = { registrationOpen: true } // Default
+  10 |   try {
+> 11 |     const dbSettings = await prisma.systemSettings.findUnique({ where: { id: 'default' } })
+     |                                                    ^
+  12 |     if (dbSettings) settings = dbSettings
+  13 |   } catch (error) {
+  14 |     console.error("Failed to fetch settings:", error) {
+  code: 'P6001',
+  clientVersion: '5.10.2',
+  meta: [Object]
+}
+ GET /admin/login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fadmin%2Fdashboard%3Fdate%3D2026-02-17 200 in 94ms (compile: 32ms, render: 62ms)
+ GET / 200 in 28ms (compile: 8ms, render: 20ms)
