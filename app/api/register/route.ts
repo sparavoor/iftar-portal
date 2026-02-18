@@ -51,8 +51,9 @@ export async function POST(request: Request) {
             }
         }
 
+        const yearPart = (year || '2026').toString().replace(/\s+/g, '')
         const sequence = sequenceNumber.toString().padStart(4, '0')
-        const registrationId = `IFTAR-${year || '2026'}-${sequence}`
+        const registrationId = `IFTAR-${yearPart}-${sequence}`
 
         // Create Registration
         const registration = await prisma.registration.create({
