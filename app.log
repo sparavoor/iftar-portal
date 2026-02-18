@@ -189,3 +189,246 @@ Error validating datasource `db`: the URL must contain a valid API key
   digest: '2725205550'
 }
  GET /admin/dashboard 500 in 39ms (compile: 3ms, proxy.ts: 6ms, render: 29ms)
+  Reload env: .env
+Failed to fetch settings: Error [PrismaClientKnownRequestError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].systemSettings.findUnique()` invocation in
+/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__3f345915._.js:116:231
+
+  113 } // Default
+  114 ;
+  115 try {
+→ 116     const dbSettings = await __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].systemSettings.findUnique(
+Error validating datasource `db`: the URL must contain a valid API key
+    at <unknown> (app/page.tsx:11:52)
+    at async Home (app/page.tsx:11:24)
+   9 |   let settings = { registrationOpen: true } // Default
+  10 |   try {
+> 11 |     const dbSettings = await prisma.systemSettings.findUnique({ where: { id: 'default' } })
+     |                                                    ^
+  12 |     if (dbSettings) settings = dbSettings
+  13 |   } catch (error) {
+  14 |     console.error("Failed to fetch settings:", error) {
+  code: 'P6001',
+  clientVersion: '5.10.2',
+  meta: [Object]
+}
+ GET / 200 in 79ms (compile: 38ms, render: 41ms)
+Initializing Prisma Client with Accelerate
+prisma:warn In production, we recommend using `prisma generate --no-engine` (See: `prisma generate --help`)
+ GET /api/auth/signin?callbackUrl=%2Fadmin%2Fdashboard 302 in 716ms (compile: 706ms, render: 10ms)
+Unhandled Rejection: Error [InvalidDatasourceError]: Error validating datasource `db`: the URL must contain a valid API key
+    at prismaClientSingleton (lib/prisma.ts:9:35)
+    at module evaluation (lib/prisma.ts:35:49)
+   7 |     if (url?.startsWith('prisma://')) {
+   8 |         console.log('Initializing Prisma Client with Accelerate')
+>  9 |         return new PrismaClient().$extends(withAccelerate())
+     |                                   ^
+  10 |     }
+  11 |
+  12 |     console.log('Initializing Prisma Client (Standard/Local)') {
+  clientVersion: '5.10.2',
+  cause: undefined,
+  isRetryable: false,
+  code: 'P6001'
+}
+ GET /admin/login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fadmin%2Fdashboard 200 in 263ms (compile: 222ms, render: 41ms)
+ GET /api/auth/providers 200 in 14ms (compile: 6ms, render: 9ms)
+ GET /api/auth/csrf 200 in 7ms (compile: 1015µs, render: 6ms)
+ POST /api/auth/callback/credentials 401 in 7ms (compile: 1390µs, render: 6ms)
+Initializing Prisma Client with Accelerate
+prisma:warn In production, we recommend using `prisma generate --no-engine` (See: `prisma generate --help`)
+Unhandled Rejection: Error [InvalidDatasourceError]: Error validating datasource `db`: the URL must contain a valid API key
+    at prismaClientSingleton (lib/prisma.ts:9:35)
+    at module evaluation (lib/prisma.ts:35:49)
+   7 |     if (url?.startsWith('prisma://')) {
+   8 |         console.log('Initializing Prisma Client with Accelerate')
+>  9 |         return new PrismaClient().$extends(withAccelerate())
+     |                                   ^
+  10 |     }
+  11 |
+  12 |     console.log('Initializing Prisma Client (Standard/Local)') {
+  clientVersion: '5.10.2',
+  cause: undefined,
+  isRetryable: false,
+  code: 'P6001'
+}
+ GET /api/auth/providers 200 in 12ms (compile: 5ms, render: 7ms)
+ GET /api/auth/csrf 200 in 7ms (compile: 1320µs, render: 6ms)
+ POST /api/auth/callback/credentials 401 in 7ms (compile: 980µs, render: 6ms)
+Initializing Prisma Client with Accelerate
+prisma:warn In production, we recommend using `prisma generate --no-engine` (See: `prisma generate --help`)
+Unhandled Rejection: Error [InvalidDatasourceError]: Error validating datasource `db`: the URL must contain a valid API key
+    at prismaClientSingleton (lib/prisma.ts:9:35)
+    at module evaluation (lib/prisma.ts:35:49)
+   7 |     if (url?.startsWith('prisma://')) {
+   8 |         console.log('Initializing Prisma Client with Accelerate')
+>  9 |         return new PrismaClient().$extends(withAccelerate())
+     |                                   ^
+  10 |     }
+  11 |
+  12 |     console.log('Initializing Prisma Client (Standard/Local)') {
+  clientVersion: '5.10.2',
+  cause: undefined,
+  isRetryable: false,
+  code: 'P6001'
+}
+Registration Error: Error [PrismaClientKnownRequestError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].registration.findFirst()` invocation in
+/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/[root-of-the-server]__aee9a706._.js:109:234
+
+  106 startOfDay.setHours(0, 0, 0, 0);
+  107 const endOfDay = new Date();
+  108 endOfDay.setHours(23, 59, 59, 999);
+→ 109 const existingToday = await __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["prisma"].registration.findFirst(
+Error validating datasource `db`: the URL must contain a valid API key
+    at <unknown> (app/api/register/route.ts:21:57)
+    at async POST (app/api/register/route.ts:21:31)
+  19 |         endOfDay.setHours(23, 59, 59, 999)
+  20 |
+> 21 |         const existingToday = await prisma.registration.findFirst({
+     |                                                         ^
+  22 |             where: {
+  23 |                 mobile,
+  24 |                 createdAt: { {
+  code: 'P6001',
+  clientVersion: '5.10.2',
+  meta: [Object]
+}
+ POST /api/register 500 in 63ms (compile: 11ms, render: 52ms)
+ GET /api/auth/signin?callbackUrl=%2Fadmin%2Fdashboard%3Fdate%3D2026-02-17 302 in 7ms (compile: 2ms, render: 4ms)
+ GET /admin/login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fadmin%2Fdashboard%3Fdate%3D2026-02-17 200 in 19ms (compile: 1934µs, render: 17ms)
+Initializing Prisma Client with Accelerate
+prisma:warn In production, we recommend using `prisma generate --no-engine` (See: `prisma generate --help`)
+Unhandled Rejection: Error [InvalidDatasourceError]: Error validating datasource `db`: the URL must contain a valid API key
+    at prismaClientSingleton (lib/prisma.ts:9:35)
+    at module evaluation (lib/prisma.ts:35:49)
+   7 |     if (url?.startsWith('prisma://')) {
+   8 |         console.log('Initializing Prisma Client with Accelerate')
+>  9 |         return new PrismaClient().$extends(withAccelerate())
+     |                                   ^
+  10 |     }
+  11 |
+  12 |     console.log('Initializing Prisma Client (Standard/Local)') {
+  clientVersion: '5.10.2',
+  cause: undefined,
+  isRetryable: false,
+  code: 'P6001'
+}
+  Reload env: .env
+Failed to fetch settings: Error [PrismaClientKnownRequestError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].systemSettings.findUnique()` invocation in
+/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__3f345915._.js:116:231
+
+  113 } // Default
+  114 ;
+  115 try {
+→ 116     const dbSettings = await __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].systemSettings.findUnique(
+Error validating datasource `db`: the URL must contain a valid API key
+    at <unknown> (app/page.tsx:11:52)
+    at async Home (app/page.tsx:11:24)
+   9 |   let settings = { registrationOpen: true } // Default
+  10 |   try {
+> 11 |     const dbSettings = await prisma.systemSettings.findUnique({ where: { id: 'default' } })
+     |                                                    ^
+  12 |     if (dbSettings) settings = dbSettings
+  13 |   } catch (error) {
+  14 |     console.error("Failed to fetch settings:", error) {
+  code: 'P6001',
+  clientVersion: '5.10.2',
+  meta: [Object]
+}
+ GET / 200 in 105ms (compile: 58ms, render: 48ms)
+ GET /admin/login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fadmin%2Fdashboard%3Fdate%3D2026-02-17 200 in 21ms (compile: 7ms, render: 14ms)
+⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/papernpencil/package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/package-lock.json
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.220.53:3000
+- Environments: .env
+
+✓ Starting...
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+✓ Ready in 543ms
+Initializing Prisma Client with Accelerate
+prisma:warn In production, we recommend using `prisma generate --no-engine` (See: `prisma generate --help`)
+Failed to fetch settings: Error [PrismaClientKnownRequestError]: 
+Invalid `__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].systemSettings.findUnique()` invocation in
+/Users/papernpencil/Desktop/Iftar 2026/iftar-participation-portal/.next/dev/server/chunks/ssr/[root-of-the-server]__3f345915._.js:116:231
+
+  113 } // Default
+  114 ;
+  115 try {
+→ 116     const dbSettings = await __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$Iftar__2026$2f$iftar$2d$participation$2d$portal$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["prisma"].systemSettings.findUnique(
+Error validating datasource `db`: the URL must contain a valid API key
+    at <unknown> (app/page.tsx:11:52)
+    at async Home (app/page.tsx:11:24)
+   9 |   let settings = { registrationOpen: true } // Default
+  10 |   try {
+> 11 |     const dbSettings = await prisma.systemSettings.findUnique({ where: { id: 'default' } })
+     |                                                    ^
+  12 |     if (dbSettings) settings = dbSettings
+  13 |   } catch (error) {
+  14 |     console.error("Failed to fetch settings:", error) {
+  code: 'P6001',
+  clientVersion: '5.10.2',
+  meta: [Object]
+}
+Error [InvalidDatasourceError]: Error validating datasource `db`: the URL must contain a valid API key
+    at prismaClientSingleton (lib/prisma.ts:9:35)
+    at module evaluation (lib/prisma.ts:35:49)
+    at module evaluation (app/page.tsx:1:1)
+    at module evaluation (.next/dev/server/chunks/ssr/[root-of-the-server]__3f345915._.js:277:47)
+   7 |     if (url?.startsWith('prisma://')) {
+   8 |         console.log('Initializing Prisma Client with Accelerate')
+>  9 |         return new PrismaClient().$extends(withAccelerate())
+     |                                   ^
+  10 |     }
+  11 |
+  12 |     console.log('Initializing Prisma Client (Standard/Local)') {
+  clientVersion: '5.10.2',
+  cause: undefined,
+  isRetryable: false,
+  code: 'P6001'
+}
+⨯ unhandledRejection: Error [InvalidDatasourceError]: Error validating datasource `db`: the URL must contain a valid API key
+    at prismaClientSingleton (lib/prisma.ts:9:35)
+    at module evaluation (lib/prisma.ts:35:49)
+    at module evaluation (app/page.tsx:1:1)
+    at module evaluation (.next/dev/server/chunks/ssr/[root-of-the-server]__3f345915._.js:277:47)
+   7 |     if (url?.startsWith('prisma://')) {
+   8 |         console.log('Initializing Prisma Client with Accelerate')
+>  9 |         return new PrismaClient().$extends(withAccelerate())
+     |                                   ^
+  10 |     }
+  11 |
+  12 |     console.log('Initializing Prisma Client (Standard/Local)') {
+  clientVersion: '5.10.2',
+  cause: undefined,
+  isRetryable: false,
+  code: 'P6001'
+}
+⨯ unhandledRejection:  Error [InvalidDatasourceError]: Error validating datasource `db`: the URL must contain a valid API key
+    at prismaClientSingleton (lib/prisma.ts:9:35)
+    at module evaluation (lib/prisma.ts:35:49)
+    at module evaluation (app/page.tsx:1:1)
+    at module evaluation (.next/dev/server/chunks/ssr/[root-of-the-server]__3f345915._.js:277:47)
+   7 |     if (url?.startsWith('prisma://')) {
+   8 |         console.log('Initializing Prisma Client with Accelerate')
+>  9 |         return new PrismaClient().$extends(withAccelerate())
+     |                                   ^
+  10 |     }
+  11 |
+  12 |     console.log('Initializing Prisma Client (Standard/Local)') {
+  clientVersion: '5.10.2',
+  cause: undefined,
+  isRetryable: false,
+  code: 'P6001'
+}
+ GET /admin/login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fadmin%2Fdashboard%3Fdate%3D2026-02-17 200 in 620ms (compile: 541ms, render: 79ms)
+ GET / 200 in 615ms (compile: 134ms, render: 481ms)
