@@ -52,6 +52,7 @@ export default async function Home() {
 
         <div className="bg-gray-50 px-6 py-4 text-center border-t text-xs text-gray-500">
           © SSF FAROOK COLLEGE . All rights reserved.
+          <Link href="https://www.instagram.com/ssffarookclg/" target="_blank" rel="noopener noreferrer" className="block mt-2 text-gray-400 hover:text-green-600 transition-colors">Instagram</Link>
         </div>
       </div>
     </main>
