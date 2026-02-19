@@ -52,7 +52,6 @@ export default async function Home() {
 
         <div className="bg-gray-50 px-6 py-4 text-center border-t text-xs text-gray-500">
           © SSF FAROOK COLLEGE . All rights reserved.
-          <Link href="/admin/login" className="block mt-2 text-gray-400 hover:text-green-600 transition-colors">Admin Login</Link>
         </div>
       </div>
     </main>
