@@ -170,7 +170,7 @@ export default function RegistrationForm() {
                             }}
                             className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg transition-colors flex justify-center items-center"
                         >
-                            Register Again For Today
+                            Register Again For Tomorrow
                         </button>
                     )}
 
